@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Tu Ara - Venta de Productos en Línea</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 150px;
+            height: auto;
+        }
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e05341;
+        }
+        .role-selection {
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Imagen o logo de Ara -->
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5tvXToFL208K1xW8iFiR2f_oXV3cnafBwWA&s" alt="Logo Tiendas Ara" class="logo">
+        
+        <h1>App Tu Ara</h1>
+        <h2>Venta de Productos en Línea</h2>
+
+        <div id="login-section">
+            <h3>Iniciar Sesión</h3>
+            <input type="text" id="email" placeholder="Correo electrónico">
+            <input type="password" id="password" placeholder="Contraseña">
+            <div class="role-selection">
+                <label for="role">Selecciona tu rol:</label>
+                <select id="role">
+                    <option value="usuario">Usuario</option>
+                    <option value="domiciliario">Domiciliario</option>
+                    <option value="administrador">Administrador</option>
+                </select>
+            </div>
+            <button onclick="login()">Iniciar Sesión</button>
+            <button onclick="showRegister()">Registrarse</button>
+        </div>
+
+        <div id="register-section" class="hidden">
+            <h3>Registro</h3>
+            <input type="text" id="register-email" placeholder="Correo electrónico">
+            <input type="password" id="register-password" placeholder="Contraseña">
+            <div class="role-selection">
+                <label for="register-role">Selecciona tu rol:</label>
+                <select id="register-role">
+                    <option value="usuario">Usuario</option>
+                    <option value="domiciliario">Domiciliario</option>
+                    <option value="administrador">Administrador</option>
+                </select>
+            </div>
+            <button onclick="register()">Registrarse</button>
+            <button onclick="showLogin()">Iniciar Sesión</button>
+        </div>
+
+        <div id="user-dashboard" class="hidden">
+            <h3>Bienvenido, Usuario</h3>
+            <p>Aquí puedes comprar productos y gestionar tu cuenta.</p>
+            <button onclick="logout()">Cerrar Sesión</button>
+        </div>
+
+        <div id="domiciliary-dashboard" class="hidden">
+            <h3>Bienvenido, Domiciliario</h3>
+            <p>Aquí puedes gestionar los pedidos que debes entregar.</p>
+            <button onclick="logout()">Cerrar Sesión</button>
+        </div>
+
+        <div id="admin-dashboard" class="hidden">
+            <h3>Bienvenido, Administrador</h3>
+            <p>Aquí puedes gestionar los productos y usuarios de la tienda.</p>
+            <button onclick="logout()">Cerrar Sesión</button>
+        </div>
+
+    </div>
+
+    <script>
+        function showRegister() {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('register-section').classList.remove('hidden');
+        }
+
+        function showLogin() {
+            document.getElementById('register-section').classList.add('hidden');
+            document.getElementById('login-section').classList.remove('hidden');
+        }
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+
+            if (email === "" || password === "") {
+                alert("Por favor, ingrese su correo y contraseña.");
+                return;
+            }
+
+            if (role === "usuario") {
+                showDashboard('user-dashboard');
+            } else if (role === "domiciliario") {
+                showDashboard('domiciliary-dashboard');
+            } else if (role === "administrador") {
+                showDashboard('admin-dashboard');
+            }
+        }
+
+        function register() {
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const role = document.getElementById('register-role').value;
+
+            if (email === "" || password === "") {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+
+            alert("Registrado exitosamente como " + role);
+            showLogin();
+        }
+
+        function logout() {
+            document.getElementById('user-dashboard').classList.add('hidden');
+            document.getElementById('domiciliary-dashboard').classList.add('hidden');
+            document.getElementById('admin-dashboard').classList.add('hidden');
+            document.getElementById('login-section').classList.remove('hidden');
+        }
+
+        function showDashboard(dashboardId) {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('register-section').classList.add('hidden');
+            document.getElementById(dashboardId).classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>

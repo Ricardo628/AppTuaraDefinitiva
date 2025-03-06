@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Tu Ara - Venta de Productos en Línea</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 150px;
+            height: auto;
+        }
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e05341;
+        }
+        .role-selection, .product-list, .order-list, .inventory-actions {
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .product {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Imagen o logo de Ara -->
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5tvXToFL208K1xW8iFiR2f_oXV3cnafBwWA&s" alt="Logo Tiendas Ara" class="logo">
+        
+        <h1>App Tu Ara</h1>
+        <h2>Venta de Productos en Línea</h2>
+
+        <!-- Sección de inicio de sesión -->
+        <div id="login-section">
+            <h3>Iniciar Sesión</h3>
+            <input type="text" id="email" placeholder="Correo electrónico">
+            <input type="password" id="password" placeholder="Contraseña">
+            <div class="role-selection">
+                <label for="role">Selecciona tu rol:</label>
+                <select id="role">
+                    <option value="usuario">Usuario</option>
+                    <option value="domiciliario">Domiciliario</option>
+                    <option value="administrador">Administrador</option>
+                </select>
+            </div>
+            <button onclick="login()">Iniciar Sesión</button>
+        </div>
+
+        <!-- Dashboard Usuario -->
+        <div id="user-dashboard" class="hidden">
+            <h3>Bienvenido, Usuario</h3>
+            <div class="product-list">
+                <h4>Productos Disponibles</h4>
+                <div id="products"></div>
+            </div>
+            <button onclick="logout()">Cerrar Sesión</button>
+        </div>
+
+        <!-- Dashboard Domiciliario -->
+        <div id="domiciliary-dashboard" class="hidden">
+            <h3>Bienvenido, Domiciliario</h3>
+            <div class="order-list">
+                <h4>Pedidos Pendientes</h4>
+                <ul id="orders">
+                    <li>Pedido #1 - Entregar a: Calle 123</li>
+                    <li>Pedido #2 - Entregar a: Avenida 45</li>
+                </ul>
+            </div>
+            <button onclick="logout()">Cerrar Sesión</button>
+        </div>
+
+        <!-- Dashboard Administrador -->
+        <div id="admin-dashboard" class="hidden">
+            <h3>Bienvenido, Administrador</h3>
+            <div class="inventory-actions">
+                <h4>Manejo de Inventario</h4>
+                <input type="text" id="product-name" placeholder="Nombre del Producto">
+                <button onclick="addProduct()">Añadir Producto</button>
+                <h4>Actualizar o Eliminar Producto</h4>
+                <div id="admin-products"></div>
+            </div>
+            <button onclick="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script>
+        // Datos iniciales
+        let products = [
+            { name: 'Arroz', id: 1 },
+            { name: 'Frijoles', id: 2 },
+            { name: 'Leche', id: 3 }
+        ];
+
+        // Función de inicio de sesión
+        function login() {
+            const role = document.getElementById('role').value;
+            document.getElementById('login-section').classList.add('hidden');
+            
+            if (role === 'usuario') {
+                showUserDashboard();
+            } else if (role === 'domiciliario') {
+                document.getElementById('domiciliary-dashboard').classList.remove('hidden');
+            } else if (role === 'administrador') {
+                showAdminDashboard();
+            }
+        }
+
+        // Función para mostrar productos al usuario
+        function showUserDashboard() {
+            const productsDiv = document.getElementById('products');
+            productsDiv.innerHTML = '';  // Limpiar lista de productos
+            products.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    <strong>${product.name}</strong>
+                    <button onclick="buyProduct('${product.name}')">Comprar</button>
+                `;
+                productsDiv.appendChild(productDiv);
+            });
+            document.getElementById('user-dashboard').classList.remove('hidden');
+        }
+
+        // Función para mostrar inventario al administrador
+        function showAdminDashboard() {
+            const adminProductsDiv = document.getElementById('admin-products');
+            adminProductsDiv.innerHTML = '';  // Limpiar productos del admin
+            products.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    <input type="text" value="${product.name}" id="product-${product.id}">
+                    <button onclick="updateProduct(${product.id})">Actualizar</button>
+                    <button onclick="deleteProduct(${product.id})">Eliminar</button>
+                `;
+                adminProductsDiv.appendChild(productDiv);
+            });
+            document.getElementById('admin-dashboard').classList.remove('hidden');
+        }
+
+        // Función para añadir producto
+        function addProduct() {
+            const productName = document.getElementById('product-name').value;
+            if (productName) {
+                const newProduct = { name: productName, id: products.length + 1 };
+                products.push(newProduct);
+                alert('Producto añadido exitosamente');
+                showAdminDashboard();
+            }
+        }
+
+        // Función para actualizar producto
+        function updateProduct(id) {
+            const updatedName = document.getElementById(`product-${id}`).value;
+            const product = products.find(p => p.id === id);
+            if (product) {
+                product.name = updatedName;
+                alert('Producto actualizado exitosamente');
+                showAdminDashboard();
+            }
+        }
+
+        // Función para eliminar producto
+        function deleteProduct(id) {
+            products = products.filter(p => p.id !== id);
+            alert('Producto eliminado exitosamente');
+            showAdminDashboard();
+        }
+
+        // Función para comprar producto
+        function buyProduct(productName) {
+            alert(`Has comprado ${productName}`);
+        }
+
+        // Función de cierre de sesión
+        function logout() {
+            document.getElementById('login-section').classList.remove('hidden');
+            document.getElementById('user-dashboard').classList.add('hidden');
+            document.getElementById('domiciliary-dashboard').classList.add('hidden');
+            document.getElementById('admin-dashboard').classList.add('hidden');
+        }
+    </script>
+
+</body>
+</html>
