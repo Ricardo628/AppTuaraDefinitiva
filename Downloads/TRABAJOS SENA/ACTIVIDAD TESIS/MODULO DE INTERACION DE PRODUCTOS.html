@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Tu Ara - Venta de Productos en Línea</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            text-align: center;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 150px;
+            height: auto;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e05341;
+        }
+        .hidden {
+            display: none;
+        }
+        .product-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .product-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .product-list ul li {
+            background-color: #e9e9e9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .contact-options {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .contact-options button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Imagen o logo de Ara -->
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5tvXToFL208K1xW8iFiR2f_oXV3cnafBwWA&s" alt="Logo Tiendas Ara" class="logo">
+        
+        <h1>App Tu Ara</h1>
+        <h2>Venta de Productos en Línea</h2>
+
+        <!-- Botón para categorías -->
+        <button onclick="showCategories()">Categorías</button>
+
+        <!-- Categorías -->
+        <div id="categories" class="hidden">
+            <button onclick="showProducts('Frutas y Verduras')">Frutas y Verduras</button>
+            <button onclick="showProducts('Carnes y Pescados')">Carnes y Pescados</button>
+            <button onclick="showProducts('Lácteos')">Lácteos</button>
+            <button onclick="showProducts('Granos y Pastas')">Granos y Pastas</button>
+            <button onclick="showProducts('Bebidas')">Bebidas</button>
+            <button onclick="showProducts('Snacks y Dulces')">Snacks y Dulces</button>
+            <button onclick="showProducts('Productos de Aseo')">Productos de Aseo</button>
+        </div>
+
+        <!-- Sección de productos por categoría -->
+        <div id="product-section" class="product-list hidden">
+            <h3 id="category-title"></h3>
+            <ul id="product-list"></ul>
+        </div>
+
+        <!-- Botón de productos destacados -->
+        <button onclick="showFeatured()">Productos Destacados</button>
+
+        <!-- Sección de productos destacados -->
+        <div id="featured-products" class="hidden">
+            <p>Estos son los productos más destacados de esta semana:</p>
+            <ul>
+                <li>Frutas tropicales</li>
+                <li>Carne de res de primera</li>
+                <li>Leche deslactosada</li>
+            </ul>
+        </div>
+
+        <!-- Botón de contacto -->
+        <button onclick="showContact()">Contáctanos</button>
+
+        <!-- Opciones de contacto -->
+        <div id="contact-section" class="contact-options hidden">
+            <button>Atención al Cliente</button>
+            <button>Correo</button>
+            <button>Reclamos y Sugerencias</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Productos por categorías
+        const productsByCategory = {
+            'Frutas y Verduras': ['Manzanas', 'Plátanos', 'Aguacates', 'Zanahorias', 'Espinacas'],
+            'Carnes y Pescados': ['Pechuga de Pollo', 'Carne de Res', 'Salmón', 'Atún en Lata'],
+            'Lácteos': ['Leche Entera', 'Queso Cheddar', 'Yogur Natural', 'Mantequilla'],
+            'Granos y Pastas': ['Arroz Blanco', 'Lentejas', 'Espagueti', 'Quinoa'],
+            'Bebidas': ['Jugo de Naranja', 'Agua Mineral', 'Cerveza', 'Refresco'],
+            'Snacks y Dulces': ['Galletas de Chocolate', 'Papas Fritas', 'Chocolates', 'Caramelos'],
+            'Productos de Aseo': ['Shampoo', 'Jabón Líquido', 'Detergente', 'Papel Higiénico']
+        };
+
+        // Función para mostrar/ocultar categorías
+        function showCategories() {
+            const categories = document.getElementById('categories');
+            categories.classList.toggle('hidden');
+        }
+
+        // Función para mostrar productos por categoría
+        function showProducts(category) {
+            const productList = document.getElementById('product-list');
+            const categoryTitle = document.getElementById('category-title');
+            const productSection = document.getElementById('product-section');
+            
+            categoryTitle.innerText = category;
+            productList.innerHTML = '';  // Limpiar la lista de productos
+
+            // Añadir los productos de la categoría seleccionada
+            productsByCategory[category].forEach(product => {
+                const li = document.createElement('li');
+                li.textContent = product;
+                productList.appendChild(li);
+            });
+
+            // Mostrar sección de productos
+            productSection.classList.remove('hidden');
+        }
+
+        // Función para mostrar/ocultar productos destacados
+        function showFeatured() {
+            const featured = document.getElementById('featured-products');
+            featured.classList.toggle('hidden');
+        }
+
+        // Función para mostrar/ocultar sección de contacto
+        function showContact() {
+            const contactSection = document.getElementById('contact-section');
+            contactSection.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>
