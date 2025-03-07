@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Tu Ara - Venta de Productos en Línea</title>
     <style>
+        /* Estilos generales de la página */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -30,6 +31,7 @@
             width: 150px;
             height: auto;
         }
+        /* Estilos para los campos de entrada y botones */
         input[type="text"], input[type="password"], select {
             width: 100%;
             padding: 10px;
@@ -59,14 +61,15 @@
     </style>
 </head>
 <body>
-
+    
     <div class="container">
-        <!-- Imagen o logo de Ara -->
+        <!-- Logo de la tienda -->
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5tvXToFL208K1xW8iFiR2f_oXV3cnafBwWA&s" alt="Logo Tiendas Ara" class="logo">
         
         <h1>App Tu Ara</h1>
         <h2>Venta de Productos en Línea</h2>
 
+        <!-- Sección de inicio de sesión -->
         <div id="login-section">
             <h3>Iniciar Sesión</h3>
             <input type="text" id="email" placeholder="Correo electrónico">
@@ -83,6 +86,7 @@
             <button onclick="showRegister()">Registrarse</button>
         </div>
 
+        <!-- Sección de registro -->
         <div id="register-section" class="hidden">
             <h3>Registro</h3>
             <input type="text" id="register-email" placeholder="Correo electrónico">
@@ -99,6 +103,7 @@
             <button onclick="showLogin()">Iniciar Sesión</button>
         </div>
 
+        <!-- Secciones de panel de usuarios según su rol -->
         <div id="user-dashboard" class="hidden">
             <h3>Bienvenido, Usuario</h3>
             <p>Aquí puedes comprar productos y gestionar tu cuenta.</p>
@@ -120,16 +125,19 @@
     </div>
 
     <script>
+        // Función para mostrar la sección de registro
         function showRegister() {
             document.getElementById('login-section').classList.add('hidden');
             document.getElementById('register-section').classList.remove('hidden');
         }
 
+        // Función para mostrar la sección de inicio de sesión
         function showLogin() {
             document.getElementById('register-section').classList.add('hidden');
             document.getElementById('login-section').classList.remove('hidden');
         }
 
+        // Función para iniciar sesión
         function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -140,6 +148,7 @@
                 return;
             }
 
+            // Mostrar el dashboard según el rol seleccionado
             if (role === "usuario") {
                 showDashboard('user-dashboard');
             } else if (role === "domiciliario") {
@@ -149,6 +158,7 @@
             }
         }
 
+        // Función para registrar un usuario
         function register() {
             const email = document.getElementById('register-email').value;
             const password = document.getElementById('register-password').value;
@@ -163,6 +173,7 @@
             showLogin();
         }
 
+        // Función para cerrar sesión
         function logout() {
             document.getElementById('user-dashboard').classList.add('hidden');
             document.getElementById('domiciliary-dashboard').classList.add('hidden');
@@ -170,6 +181,7 @@
             document.getElementById('login-section').classList.remove('hidden');
         }
 
+        // Función para mostrar el panel de usuario según su rol
         function showDashboard(dashboardId) {
             document.getElementById('login-section').classList.add('hidden');
             document.getElementById('register-section').classList.add('hidden');

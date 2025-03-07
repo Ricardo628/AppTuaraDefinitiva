@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Tu Ara - Venta de Productos en Línea</title>
     <style>
+        /* Estilos generales de la aplicación */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -30,6 +31,7 @@
             width: 150px;
             height: auto;
         }
+        /* Estilos para los formularios y botones */
         input[type="text"], input[type="password"], select {
             width: 100%;
             padding: 10px;
@@ -50,9 +52,7 @@
         button:hover {
             background-color: #e05341;
         }
-        .role-selection, .product-list, .order-list, .inventory-actions {
-            margin-bottom: 20px;
-        }
+        /* Secciones ocultas hasta que el usuario inicie sesión */
         .hidden {
             display: none;
         }
@@ -67,7 +67,7 @@
 <body>
 
     <div class="container">
-        <!-- Imagen o logo de Ara -->
+        <!-- Logo de la tienda -->
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5tvXToFL208K1xW8iFiR2f_oXV3cnafBwWA&s" alt="Logo Tiendas Ara" class="logo">
         
         <h1>App Tu Ara</h1>
@@ -119,7 +119,6 @@
                 <h4>Manejo de Inventario</h4>
                 <input type="text" id="product-name" placeholder="Nombre del Producto">
                 <button onclick="addProduct()">Añadir Producto</button>
-                <h4>Actualizar o Eliminar Producto</h4>
                 <div id="admin-products"></div>
             </div>
             <button onclick="logout()">Cerrar Sesión</button>
@@ -127,14 +126,14 @@
     </div>
 
     <script>
-        // Datos iniciales
+        // Lista de productos iniciales
         let products = [
             { name: 'Arroz', id: 1 },
             { name: 'Frijoles', id: 2 },
             { name: 'Leche', id: 3 }
         ];
 
-        // Función de inicio de sesión
+        // Función para iniciar sesión
         function login() {
             const role = document.getElementById('role').value;
             document.getElementById('login-section').classList.add('hidden');
@@ -148,10 +147,10 @@
             }
         }
 
-        // Función para mostrar productos al usuario
+        // Muestra el dashboard del usuario con productos disponibles
         function showUserDashboard() {
             const productsDiv = document.getElementById('products');
-            productsDiv.innerHTML = '';  // Limpiar lista de productos
+            productsDiv.innerHTML = '';
             products.forEach(product => {
                 const productDiv = document.createElement('div');
                 productDiv.className = 'product';
@@ -164,58 +163,12 @@
             document.getElementById('user-dashboard').classList.remove('hidden');
         }
 
-        // Función para mostrar inventario al administrador
-        function showAdminDashboard() {
-            const adminProductsDiv = document.getElementById('admin-products');
-            adminProductsDiv.innerHTML = '';  // Limpiar productos del admin
-            products.forEach(product => {
-                const productDiv = document.createElement('div');
-                productDiv.className = 'product';
-                productDiv.innerHTML = `
-                    <input type="text" value="${product.name}" id="product-${product.id}">
-                    <button onclick="updateProduct(${product.id})">Actualizar</button>
-                    <button onclick="deleteProduct(${product.id})">Eliminar</button>
-                `;
-                adminProductsDiv.appendChild(productDiv);
-            });
-            document.getElementById('admin-dashboard').classList.remove('hidden');
-        }
-
-        // Función para añadir producto
-        function addProduct() {
-            const productName = document.getElementById('product-name').value;
-            if (productName) {
-                const newProduct = { name: productName, id: products.length + 1 };
-                products.push(newProduct);
-                alert('Producto añadido exitosamente');
-                showAdminDashboard();
-            }
-        }
-
-        // Función para actualizar producto
-        function updateProduct(id) {
-            const updatedName = document.getElementById(`product-${id}`).value;
-            const product = products.find(p => p.id === id);
-            if (product) {
-                product.name = updatedName;
-                alert('Producto actualizado exitosamente');
-                showAdminDashboard();
-            }
-        }
-
-        // Función para eliminar producto
-        function deleteProduct(id) {
-            products = products.filter(p => p.id !== id);
-            alert('Producto eliminado exitosamente');
-            showAdminDashboard();
-        }
-
-        // Función para comprar producto
+        // Función para comprar un producto
         function buyProduct(productName) {
             alert(`Has comprado ${productName}`);
         }
 
-        // Función de cierre de sesión
+        // Función para cerrar sesión
         function logout() {
             document.getElementById('login-section').classList.remove('hidden');
             document.getElementById('user-dashboard').classList.add('hidden');
@@ -223,6 +176,5 @@
             document.getElementById('admin-dashboard').classList.add('hidden');
         }
     </script>
-
 </body>
 </html>

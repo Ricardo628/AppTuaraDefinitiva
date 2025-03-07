@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Tu Ara - Venta de Productos en Línea</title>
     <style>
+        /* Estilos generales para el cuerpo de la página */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
+        
+        /* Contenedor principal de la aplicación */
         .container {
             width: 100%;
             max-width: 500px;
@@ -21,58 +24,74 @@
             margin-top: 50px;
             text-align: center;
         }
+        
         h1, h2, h3 {
             color: #333;
         }
+        
+        /* Estilos para el logo */
         .logo {
             display: block;
             margin: 0 auto;
             width: 150px;
             height: auto;
         }
+        
+        /* Estilos para la sección del producto */
         .product {
             text-align: left;
             margin-top: 20px;
         }
+        
         .product img {
             width: 100%;
             height: auto;
             border-radius: 5px;
         }
+        
+        /* Descripción del producto */
         .product-description {
             margin-top: 15px;
         }
+        
+        /* Precio del producto */
         .price {
             color: #ff6347;
             font-size: 24px;
             font-weight: bold;
         }
+        
+        /* Sección de reseñas */
         .reviews {
             margin-top: 15px;
         }
+        
+        /* Lista de productos relacionados */
         .related-products ul {
             list-style-type: none;
             padding: 0;
         }
+        
         .related-products ul li {
             background-color: #e9e9e9;
             margin: 5px 0;
             padding: 10px;
             border-radius: 5px;
         }
+        
+        /* Sección del carrito de compras */
         .cart {
             margin-top: 20px;
             background-color: #f0f0f0;
             padding: 15px;
             border-radius: 5px;
         }
-        .cart h3 {
-            margin-bottom: 10px;
-        }
+        
         .cart ul {
             list-style-type: none;
             padding: 0;
         }
+        
         .cart ul li {
             display: flex;
             justify-content: space-between;
@@ -81,21 +100,28 @@
             background-color: #e9e9e9;
             border-radius: 5px;
         }
+        
+        /* Input de cantidad de productos */
         .quantity-input {
             width: 50px;
             text-align: center;
         }
+        
+        /* Sección de pago */
         .checkout {
             margin-top: 20px;
             background-color: #f0f0f0;
             padding: 15px;
             border-radius: 5px;
         }
+        
         .checkout input, .checkout select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
         }
+        
+        /* Botones generales */
         button {
             width: 100%;
             padding: 15px;
@@ -107,6 +133,7 @@
             margin: 10px 0;
             font-size: 16px;
         }
+        
         button:hover {
             background-color: #e05341;
         }
@@ -121,7 +148,7 @@
         <h1>App Tu Ara</h1>
         <h2>Venta de Productos en Línea</h2>
 
-        <!-- Sección de producto -->
+        <!-- Sección de información del producto -->
         <div class="product">
             <h3>Producto: Manzanas</h3>
             <img src="https://supermercadosnacional.com/media/catalog/product/cache/afcac67a0d77755283578b677f040f2b/2/8/2800197-1.jpg" alt="Manzanas">
@@ -130,7 +157,7 @@
             <p class="reviews">Reseñas: ★★★★☆ (15)</p>
         </div>
 
-        <!-- Productos relacionados -->
+        <!-- Lista de productos relacionados -->
         <div class="related-products">
             <h3>Productos relacionados</h3>
             <ul>
@@ -140,7 +167,7 @@
             </ul>
         </div>
 
-        <!-- Carrito de compras -->
+        <!-- Sección del carrito de compras -->
         <div class="cart">
             <h3>Carrito de Compras</h3>
             <ul>
@@ -153,7 +180,7 @@
             <p>Total: <span id="total-price">$2,000 COP</span></p>
         </div>
 
-        <!-- Proceso de pago -->
+        <!-- Sección del proceso de pago -->
         <div class="checkout">
             <h3>Proceso de Pago</h3>
             <form id="payment-form">
@@ -161,8 +188,6 @@
                 <input type="text" placeholder="Nombre Completo" required>
                 <input type="text" placeholder="Dirección" required>
                 <input type="text" placeholder="Ciudad" required>
-                
-
                 <label>Métodos de Pago</label>
                 <select required>
                     <option value="">Seleccionar método de pago</option>
@@ -172,29 +197,9 @@
                     <option value="bogota">Banco de Bogotá</option>
                     <option value="efecty">Efecty</option>
                 </select>
-
                 <button type="submit" onclick="placeOrder()">Realizar Pedido</button>
             </form>
         </div>
     </div>
-
-    <script>
-        // Función para actualizar el carrito cuando se modifica la cantidad
-        function updateCart() {
-            const quantityInput = document.querySelector('.quantity-input');
-            const totalPriceElement = document.getElementById('total-price');
-            const price = 2000;  // Precio en pesos colombianos
-            const totalPrice = quantityInput.value * price;
-            totalPriceElement.innerText = `$${totalPrice.toLocaleString('es-CO')} COP`;
-        }
-
-        // Función para realizar el pedido (proceso de pago)
-        function placeOrder() {
-            event.preventDefault();  // Prevenir el envío del formulario para esta demostración
-            alert('Pedido realizado con éxito. ¡Gracias por comprar en Tiendas Ara!');
-        }
-    </script>
-
 </body>
 </html>
-
