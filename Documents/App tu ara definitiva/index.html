@@ -8,16 +8,13 @@
 </head>
 <body>
     <div class="container">
-        <!-- Imagen o logo de Tiendas Ara -->
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5tvXToFL208K1xW8iFiR2f_oXV3cnafBwWA&s" alt="Logo Tiendas Ara" class="logo">
         
         <h1>App Tu Ara</h1>
         <h2>Tienda en Línea</h2>
 
-        <!-- Botón para mostrar/ocultar categorías -->
         <button onclick="showCategories()">Categorías</button>
 
-        <!-- Sección de categorías -->
         <div id="categories" class="hidden">
             <button onclick="showProducts('Frutas y Verduras')">Frutas y Verduras</button>
             <button onclick="showProducts('Carnes y Pescados')">Carnes y Pescados</button>
@@ -28,16 +25,13 @@
             <button onclick="showProducts('Productos de Aseo')">Productos de Aseo</button>
         </div>
 
-        <!-- Sección de productos por categoría -->
         <div id="product-section" class="product-list hidden">
             <h3 id="category-title"></h3>
             <ul id="product-list"></ul>
         </div>
 
-        <!-- Botón para mostrar productos destacados -->
         <button onclick="showFeatured()">Productos Destacados</button>
 
-        <!-- Sección de productos destacados -->
         <div id="featured-products" class="hidden">
             <p>Estos son los productos destacados de esta semana:</p>
             <ul>
@@ -47,10 +41,8 @@
             </ul>
         </div>
 
-        <!-- Botón para mostrar opciones de contacto -->
         <button onclick="showContact()">Contáctanos</button>
 
-        <!-- Opciones de contacto -->
         <div id="contact-section" class="contact-options hidden">
             <button>Atención al Cliente</button>
             <button>Correo Electrónico</button>
